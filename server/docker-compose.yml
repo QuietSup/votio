@@ -3,9 +3,10 @@ version: '0.1'
 services:
   db: 
     image: postgres:16-alpine
-    restart: always
+    restart: unless-stopped
     environment:
       - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=votioDB
     container_name: votio-db
     volumes:
       - pgdata:/var/lib/postgresql/data
@@ -16,7 +17,7 @@ services:
     build: .
     container_name: votio-server
     env_file:
-      - .development.env
+      - .env.development
     ports:
       - 3000:3000
       - 9229:9229
