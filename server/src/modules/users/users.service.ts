@@ -16,7 +16,6 @@ export class UsersService {
     @InjectRepository(User)
     private userRepository: Repository<User>,
 
-    @Inject()
     private cryptoService: CryptoService,
   ) {}
 
