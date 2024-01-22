@@ -4,21 +4,17 @@ import {
   Injectable,
   NestInterceptor,
 } from '@nestjs/common';
-import { Observable, tap } from 'rxjs';
+import { Observable, map } from 'rxjs';
 
 @Injectable()
 export class ExcludePasswordInterceptor implements NestInterceptor {
-  async intercept(
+  intercept(
     context: ExecutionContext,
     next: CallHandler<any>,
-  ): Promise<Observable<any>> {
+  ): Observable<any> | Promise<Observable<any>> {
     return next
       .handle()
-      .pipe(
-        tap(async (responsePromise) =>
-          this.removePassword(await responsePromise()),
-        ),
-      );
+      .pipe(map((responsePromise) => this.removePassword(responsePromise)));
   }
 
   private removePassword(
