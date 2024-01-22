@@ -6,17 +6,17 @@ export class User extends TimeRecord {
   @PrimaryGeneratedColumn('uuid')
   uuid: string;
 
-  @Column({ unique: true })
-  username: string;
+  @Column({ unique: true, nullable: true })
+  username?: string;
 
   @Column({ unique: true })
   email: string;
 
   @Column({ nullable: true })
-  firstname: string;
+  firstname?: string;
 
   @Column({ nullable: true })
-  lastname: string;
+  lastname?: string;
 
   @Column()
   password: string;
