@@ -7,6 +7,7 @@ import {
   Param,
   Delete,
   UseInterceptors,
+  Inject,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserRequest } from './dto/create-user.request';
