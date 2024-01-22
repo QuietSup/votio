@@ -4,6 +4,10 @@ import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
 // import { TypeOrmModule } from '@nestjs/typeorm';
 import { dbConfigModule } from './config/db.config';
+import { AuthResolver } from './auth/auth.resolver';
+import { UsersResolver } from './users/users.resolver';
+import { UsersModule } from './users/users.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -12,8 +16,10 @@ import { dbConfigModule } from './config/db.config';
       envFilePath: `.env.development`,
     }),
     dbConfigModule,
+    UsersModule,
+    AuthModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, AuthResolver, UsersResolver],
 })
 export class AppModule {}
