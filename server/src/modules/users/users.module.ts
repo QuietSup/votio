@@ -8,6 +8,7 @@ import { User } from './entities/user.entity';
 
 @Module({
   imports: [CryptoModule, TypeOrmModule.forFeature([User])],
+  exports: [UsersService],
   controllers: [UsersController],
   providers: [UsersService, ExcludePasswordInterceptor],
 })
