@@ -1,3 +1,4 @@
+import { Poll } from 'src/modules/polls/entities/poll.entity';
 import { User } from 'src/modules/users/entities/user.entity';
 import { TimeRecord } from 'src/parent-entities/time-record.entity';
 import {
@@ -35,4 +36,7 @@ export class Survey extends TimeRecord {
     nullable: true,
   })
   endTime: Date;
+
+  @ManyToOne(() => Poll, (poll) => poll.survey)
+  polls: Poll[];
 }
