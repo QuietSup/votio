@@ -37,6 +37,6 @@ export class Survey extends TimeRecord {
   })
   endTime: Date;
 
-  @ManyToOne(() => Poll, (poll) => poll.survey)
+  @OneToMany(() => Poll, (poll) => poll.survey)
   polls: Poll[];
 }
