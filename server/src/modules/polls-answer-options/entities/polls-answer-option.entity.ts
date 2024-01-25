@@ -1,5 +1,12 @@
+import { PollAnswer } from 'src/modules/poll-answers/entities/poll-answer.entity';
 import { Poll } from 'src/modules/polls/entities/poll.entity';
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  ManyToOne,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 @Entity()
 export class PollsAnswerOption {
@@ -13,4 +20,7 @@ export class PollsAnswerOption {
     onDelete: 'CASCADE',
   })
   poll: Poll;
+
+  @OneToMany(() => PollAnswer, (pollAnswer) => pollAnswer.pollsAnswerOption)
+  pollAnswers: PollAnswer[];
 }
