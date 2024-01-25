@@ -20,8 +20,19 @@ export class Survey extends TimeRecord {
   authRequired: string;
 
   @ManyToOne(() => User, (user) => user.surveys, {
-    nullable: true,
     onDelete: 'CASCADE',
   })
   user: User;
+
+  @Column({
+    type: 'timestamptz',
+    nullable: true,
+  })
+  start_time: Date;
+
+  @Column({
+    type: 'timestamptz',
+    nullable: true,
+  })
+  endTime: Date;
 }
