@@ -19,6 +19,9 @@ export class Survey extends TimeRecord {
   @Column()
   authRequired: string;
 
-  @ManyToOne(() => User, (user) => user.surveys)
+  @ManyToOne(() => User, (user) => user.surveys, {
+    nullable: true,
+    onDelete: 'CASCADE',
+  })
   user: User;
 }
