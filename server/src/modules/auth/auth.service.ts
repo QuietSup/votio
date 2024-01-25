@@ -7,6 +7,7 @@ import { UserNotFoundException } from 'src/exceptions/user-not-found.exception';
 import { CryptoService } from '../crypto/crypto.service';
 import { LoginRequest } from './dto/login.request';
 import { JwtService } from '@nestjs/jwt';
+import { Payload } from './strategies/jwt/payload';
 
 @Injectable()
 export class AuthService {
@@ -32,11 +33,16 @@ export class AuthService {
     return null;
   }
 
+  private generateTokens(payload: Payload) {
+    return {
+      access_token: this.jwtService.sign(payload, { expiresIn: '1h' }),
+      refresh_token: this.jwtService.sign(payload, { expiresIn: '3h' }),
+    };
+  }
+
   login(user: any) {
     const payload = { email: user.email, sub: user.uuid };
-    return {
-      access_token: this.jwtService.sign(payload),
-    };
+    return this.generateTokens(payload);
   }
 
   signOut(id: number) {
