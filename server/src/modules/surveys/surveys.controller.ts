@@ -1,34 +1,47 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  Query,
+} from '@nestjs/common';
 import { SurveysService } from './surveys.service';
-import { CreateSurveyDto } from './dto/create-survey.dto';
-import { UpdateSurveyDto } from './dto/update-survey.dto';
+import { FindAllSurveysRequest } from './dto/find-all-surveys.request';
+import { CreateSurveyRequest } from './dto/create-survey.request';
+import { UpdateSurveyRequest } from './dto/update-survey.request';
 
 @Controller('surveys')
 export class SurveysController {
   constructor(private readonly surveysService: SurveysService) {}
 
   @Post()
-  create(@Body() createSurveyDto: CreateSurveyDto) {
-    return this.surveysService.create(createSurveyDto);
+  create(@Body() CreateSurveyRequest: CreateSurveyRequest) {
+    return this.surveysService.create(CreateSurveyRequest);
   }
 
   @Get()
-  findAll() {
-    return this.surveysService.findAll();
+  findAll(@Query() options: FindAllSurveysRequest) {
+    return this.surveysService.findAll(options);
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.surveysService.findOne(+id);
+  @Get(':uuid')
+  findOne(@Param('uuid') uuid: string) {
+    return this.surveysService.findOne(uuid);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateSurveyDto: UpdateSurveyDto) {
-    return this.surveysService.update(+id, updateSurveyDto);
+  @Patch(':uuid')
+  update(
+    @Param('uuid') uuid: string,
+    @Body() updateSurveyDto: UpdateSurveyRequest,
+  ) {
+    return this.surveysService.update(uuid, updateSurveyDto);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.surveysService.remove(+id);
+  @Delete(':uuid')
+  remove(@Param('uuid') uuid: string) {
+    return this.surveysService.remove(uuid);
   }
 }
