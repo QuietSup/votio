@@ -1,7 +1,18 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  Query,
+  ValidationPipe,
+} from '@nestjs/common';
 import { PollsService } from './polls.service';
 import { CreatePollDto } from './dto/create-poll.dto';
 import { UpdatePollDto } from './dto/update-poll.dto';
+import { FindAllPollsDto } from './dto/find-all-polls.dto';
 
 @Controller('polls')
 export class PollsController {
@@ -13,22 +24,24 @@ export class PollsController {
   }
 
   @Get()
-  findAll() {
-    return this.pollsService.findAll();
+  findAll(
+    @Query(new ValidationPipe({ transform: true })) options: FindAllPollsDto,
+  ) {
+    return this.pollsService.findAll(options);
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.pollsService.findOne(+id);
+  @Get(':uuid')
+  findOne(@Param('uuid') uuid: string) {
+    return this.pollsService.findOne(uuid);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updatePollDto: UpdatePollDto) {
-    return this.pollsService.update(+id, updatePollDto);
+  @Patch(':uuid')
+  update(@Param('uuid') uuid: string, @Body() updatePollDto: UpdatePollDto) {
+    return this.pollsService.update(uuid, updatePollDto);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.pollsService.remove(+id);
+  @Delete(':uuid')
+  remove(@Param('uuid') uuid: string) {
+    return this.pollsService.remove(uuid);
   }
 }

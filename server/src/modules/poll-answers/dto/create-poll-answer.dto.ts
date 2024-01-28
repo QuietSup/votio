@@ -1,1 +1,3 @@
-export class CreatePollAnswerDto {}
+export class CreatePollAnswerDto {
+  // pollsAnswerOption?: PollsAnswerOption;
+}
