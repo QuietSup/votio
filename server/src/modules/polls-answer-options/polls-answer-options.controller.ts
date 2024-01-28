@@ -1,11 +1,23 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  Query,
+} from '@nestjs/common';
 import { PollsAnswerOptionsService } from './polls-answer-options.service';
 import { CreatePollsAnswerOptionDto } from './dto/create-polls-answer-option.dto';
 import { UpdatePollsAnswerOptionDto } from './dto/update-polls-answer-option.dto';
+import { FindAllPollsAnswerOptionDto } from './dto/find-all-polls-answer-option.dto';
 
 @Controller('polls-answer-options')
 export class PollsAnswerOptionsController {
-  constructor(private readonly pollsAnswerOptionsService: PollsAnswerOptionsService) {}
+  constructor(
+    private readonly pollsAnswerOptionsService: PollsAnswerOptionsService,
+  ) {}
 
   @Post()
   create(@Body() createPollsAnswerOptionDto: CreatePollsAnswerOptionDto) {
@@ -13,22 +25,28 @@ export class PollsAnswerOptionsController {
   }
 
   @Get()
-  findAll() {
-    return this.pollsAnswerOptionsService.findAll();
+  findAll(@Query() options: FindAllPollsAnswerOptionDto) {
+    return this.pollsAnswerOptionsService.findAll(options);
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.pollsAnswerOptionsService.findOne(+id);
+  @Get(':uuid')
+  findOne(@Param('uuid') uuid: string) {
+    return this.pollsAnswerOptionsService.findOne(uuid);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updatePollsAnswerOptionDto: UpdatePollsAnswerOptionDto) {
-    return this.pollsAnswerOptionsService.update(+id, updatePollsAnswerOptionDto);
+  @Patch(':uuid')
+  update(
+    @Param('uuid') uuid: string,
+    @Body() updatePollsAnswerOptionDto: UpdatePollsAnswerOptionDto,
+  ) {
+    return this.pollsAnswerOptionsService.update(
+      uuid,
+      updatePollsAnswerOptionDto,
+    );
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.pollsAnswerOptionsService.remove(+id);
+  @Delete(':uuid')
+  remove(@Param('uuid') uuid: string) {
+    return this.pollsAnswerOptionsService.remove(uuid);
   }
 }
