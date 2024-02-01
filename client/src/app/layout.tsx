@@ -20,11 +20,11 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head />
-      <body className={inter.className}>
-        {/* <body className={cn(inter.className, "w-full")}> */}
+      {/* <body className={inter.className}> */}
+      <body className={cn(inter.className, "max-w-screen-xl m-auto")}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <Navbar />
-          {children}
+          <div className="w-full p-2">{children}</div>
         </ThemeProvider>
       </body>
     </html>
