@@ -7,6 +7,7 @@ import {
   FormField,
   FormItem,
   FormLabel,
+  FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -17,6 +18,9 @@ const loginFromSchema = z.object({
   email: z.string().min(2, {
     message: "Email must be at least 2 characters long",
   }),
+  password: z.string().min(2, {
+    message: "Password must be at least 2 characters long",
+  }),
 });
 
 export default function Page() {
@@ -24,6 +28,7 @@ export default function Page() {
     resolver: zodResolver(loginFromSchema),
     defaultValues: {
       email: "",
+      password: "",
     },
   });
 
@@ -39,7 +44,7 @@ export default function Page() {
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className="space-y-8 max-w-md m-auto"
+          className="space-y-4 w-full max-w-lg m-auto"
         >
           <FormField
             control={form.control}
@@ -50,12 +55,29 @@ export default function Page() {
                 <FormControl>
                   <Input placeholder="example@email.com" {...field} />
                 </FormControl>
+                <FormMessage />
               </FormItem>
             )}
           />
-          <Button type="submit" variant={"default"}>
-            Log in
-          </Button>
+
+          <FormField
+            control={form.control}
+            name="password"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Password</FormLabel>
+                <FormControl>
+                  <Input placeholder="*********" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <div className=" flex flex-row w-full items-center">
+            <Button type="submit" variant={"default"} className="m-auto">
+              Log in
+            </Button>
+          </div>
         </form>
       </Form>
     </>

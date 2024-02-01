@@ -24,7 +24,9 @@ export default function RootLayout({
       <body className={cn(inter.className, "max-w-screen-xl m-auto")}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <Navbar />
-          <div className="w-full p-2">{children}</div>
+          <div className="w-full p-2 flex flex-col min-h-[calc(100vh-100px)]">
+            {children}
+          </div>
         </ThemeProvider>
       </body>
     </html>
