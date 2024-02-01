@@ -4,6 +4,7 @@ import "./globals.css";
 import { Navbar } from "@/components/Navbar";
 import { ThemeProvider } from "@/components/theme-provider";
 import { cn } from "@/lib/utils";
+import { Toaster } from "@/components/ui/toaster";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -27,6 +28,7 @@ export default function RootLayout({
           <div className="w-full p-2 flex flex-col min-h-[calc(100vh-100px)]">
             {children}
           </div>
+          <Toaster />
         </ThemeProvider>
       </body>
     </html>
