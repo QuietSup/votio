@@ -16,9 +16,12 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 const loginFromSchema = z.object({
-  email: z.string().min(2, {
-    message: "Email must be at least 2 characters long",
-  }),
+  email: z
+    .string()
+    .min(2, {
+      message: "Email must be at least 2 characters long",
+    })
+    .email(),
   password: z.string().min(2, {
     message: "Password must be at least 2 characters long",
   }),
