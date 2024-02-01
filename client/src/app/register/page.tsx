@@ -10,6 +10,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { useToast } from "@/components/ui/use-toast";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -33,6 +34,8 @@ const loginFromSchema = z
   });
 
 export default function Page() {
+  const { toast } = useToast();
+
   const form = useForm<z.infer<typeof loginFromSchema>>({
     resolver: zodResolver(loginFromSchema),
     defaultValues: {
@@ -45,11 +48,13 @@ export default function Page() {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
     console.log(values);
+    toast({
+      description: "Successfully registered!",
+    });
   }
 
   return (
     <>
-      {/* <div>Login</div> */}
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
