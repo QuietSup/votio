@@ -17,13 +17,13 @@ import {
 const components: { title: string; href: string; description: string }[] = [
   {
     title: "Survey",
-    href: "/docs/primitives/alert-dialog",
+    href: "/create/survey",
     description:
       "A modal dialog that interrupts the user with important content and expects a response.",
   },
   {
     title: "Poll",
-    href: "/docs/primitives/hover-card",
+    href: "/create/poll",
     description:
       "For sighted users to preview content available behind a link.",
   },
